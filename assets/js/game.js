@@ -34,6 +34,30 @@ var fightOrSkip = function() {
     }
 }
 
+var shop = function () {
+    // ask player what they'd like to do
+    var shopOptionPrompt = window.prompt(
+        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE."
+    );
+    shopOptionPrompt = parseInt(shopOptionPrompt);
+
+    switch (shopOptionPrompt) {
+        case 1:
+          playerInfo.refillHealth();
+          break;
+        case 2:
+          playerInfo.upgradeAttack();
+          break;
+        case 3:
+          window.alert("Leaving the store.");
+          break;
+        default:
+          window.alert("You did not pick a valid option. Try again.");
+          shop();
+          break;
+      }
+}
+
 var fight = function(enemy) {
     // Alert players that they are starting the round
     while(playerInfo.health > 0 && enemy.health > 0) {
@@ -123,6 +147,26 @@ var playerInfo = {
     upgradeAttack: function() {
       this.attack += 6;
       this.money -= 7;
+    },
+    refillHealth: function() {
+        if (this.money >= 7) {
+          window.alert("Refilling player's health by 20 for 7 dollars.");
+          this.health += 20;
+          this.money -= 7;
+        } 
+        else {
+          window.alert("You don't have enough money!");
+        }
+    },
+    upgradeAttack: function() {
+        if (this.money >= 7) {
+          window.alert("Upgrading player's attack by 6 for 7 dollars.");
+          this.attack += 6;
+          this.money -= 7;
+        } 
+        else {
+          window.alert("You don't have enough money!");
+        }
     }
 };
 
@@ -143,26 +187,6 @@ var enemyInfo = [
       name: "Robo Trumble",
       attack: randomNumber(10, 14)
     },
-    {refillHealth: function() {
-        if (this.money >= 7) {
-          window.alert("Refilling player's health by 20 for 7 dollars.");
-          this.health += 20;
-          this.money -= 7;
-        } 
-        else {
-          window.alert("You don't have enough money!");
-        }
-    }},
-    {upgradeAttack: function() {
-        if (this.money >= 7) {
-          window.alert("Upgrading player's attack by 6 for 7 dollars.");
-          this.attack += 6;
-          this.money -= 7;
-        } 
-        else {
-          window.alert("You don't have enough money!");
-        }
-    }}
 ];
 
 var startGame = function() {
@@ -225,35 +249,4 @@ var endGame = function () {
     }
 }
 
-var shop = function () {
-    // ask player what they'd like to do
-    var shopOptionPrompt = window.prompt(
-        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
-    )
-    switch (shopOptionPrompt) {
-        case "REFILL":
-        case "refill":
-            playerInfo.refillHealth();
-        break;
-
-        case "UPGRADE":
-        case "upgrade":
-            playerInfo.upgradeAttack();
-        break;
-
-        case "LEAVE":
-        case "leave":
-            window.alert("Leaving the store.");
-      
-            // do nothing, so function will end
-        break;
-
-        default:
-          window.alert("You did not pick a valid option. Try again.");
-      
-          // call shop() again to force player to pick a valid option
-          shop();
-          break;
-    }
-}
 startGame()
