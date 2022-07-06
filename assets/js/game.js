@@ -96,7 +96,7 @@ var playerInfo = {
 var enemyInfo = [
     {
       name: "Roborto",
-      attack: randomNumber(10, 14)
+      attack: randomNumber(10, 14),
       shield: {
         type: "wood",
         strength: 10
@@ -109,29 +109,28 @@ var enemyInfo = [
     {
       name: "Robo Trumble",
       attack: randomNumber(10, 14)
-    }
+    },
+    {refillHealth: function() {
+        if (this.money >= 7) {
+          window.alert("Refilling player's health by 20 for 7 dollars.");
+          this.health += 20;
+          this.money -= 7;
+        } 
+        else {
+          window.alert("You don't have enough money!");
+        }
+    }},
+    {upgradeAttack: function() {
+        if (this.money >= 7) {
+          window.alert("Upgrading player's attack by 6 for 7 dollars.");
+          this.attack += 6;
+          this.money -= 7;
+        } 
+        else {
+          window.alert("You don't have enough money!");
+        }
+    }}
 ];
-
-refillHealth: function() {
-    if (this.money >= 7) {
-      window.alert("Refilling player's health by 20 for 7 dollars.");
-      this.health += 20;
-      this.money -= 7;
-    } 
-    else {
-      window.alert("You don't have enough money!");
-    }
-  },
-  upgradeAttack: function() {
-    if (this.money >= 7) {
-      window.alert("Upgrading player's attack by 6 for 7 dollars.");
-      this.attack += 6;
-      this.money -= 7;
-    } 
-    else {
-      window.alert("You don't have enough money!");
-    }
-}
 
 var startGame = function() {
     //reset player stats
